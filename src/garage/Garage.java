@@ -6,9 +6,13 @@ public class Garage {
 	ArrayList<Vehicle> vehicles = new ArrayList<>();
 
 	public void print() {
-		System.out.println("Garage currently contains: ");
-		for (Vehicle v : vehicles) {
-			System.out.println(v.print());
+		if (vehicles.isEmpty()) {
+			System.out.println("Garage is currently empty");
+		} else {
+			System.out.println("Garage currently contains: ");
+			for (Vehicle v : vehicles) {
+				System.out.println(v.print());
+			}
 		}
 	}
 
@@ -49,6 +53,10 @@ public class Garage {
 			}
 		}
 		vehicles.removeAll(toRemove);
+	}
+
+	public void empty() {
+		vehicles.clear();
 	}
 
 	public void fixVehicle(Vehicle vehicle) {
