@@ -5,45 +5,56 @@ import java.util.ArrayList;
 public class Garage {
 	ArrayList<Vehicle> vehicles = new ArrayList<>();
 
+	public void print() {
+		System.out.println("Garage currently contains: ");
+		for (Vehicle v : vehicles) {
+			System.out.println(v.print());
+		}
+	}
+
 	public void add(Vehicle vehicle) {
 		vehicles.add(vehicle);
 		System.out.println(vehicle.print() + " added to garage");
 	}
 
 	public void remove(Vehicle vehicle) {
+		Vehicle toRemove = null;
 		for (Vehicle v : vehicles) {
 			if (v == vehicle) {
-				vehicles.remove(v);
-				System.out.println(v.print() + " removed from garage");
+				toRemove = v;
 			}
 		}
+		vehicles.remove(toRemove);
 	}
 
 	public void removeByType(String vehicle) {
-		switch (vehicle.toLowerCase()) {
-		case "car":
-			for (Vehicle car : vehicles) {
-				if (car instanceof Car) {
-					vehicles.remove(car);
+		ArrayList<Vehicle> toRemove = new ArrayList<>();
+		for (Vehicle v : vehicles) {
+			switch (vehicle.toLowerCase()) {
+			case "car":
+				if (v instanceof Car) {
+					toRemove.add(v);
 				}
-			}
-		case "motorbike":
-			for (Vehicle motorbike : vehicles) {
-				if (motorbike instanceof Motorbike) {
-					vehicles.remove(motorbike);
+				break;
+			case "motorbike":
+				if (v instanceof Motorbike) {
+					toRemove.add(v);
 				}
-			}
-		case "lorry":
-			for (Vehicle lorry : vehicles) {
-				if (lorry instanceof Lorry) {
-					vehicles.remove(lorry);
+				break;
+			case "lorry":
+				if (v instanceof Lorry) {
+					toRemove.add(v);
 				}
+				break;
 			}
 		}
+		vehicles.removeAll(toRemove);
 	}
 
 	public void fixVehicle(Vehicle vehicle) {
 		System.out.println(vehicle.print() + " is now fixed, your bill comes to £" + calculateBill(vehicle));
+		vehicles.remove(vehicle);
+		System.out.println(vehicle.print() + " has been removed from the garage");
 	}
 
 	public int calculateBill(Vehicle vehicle) {
