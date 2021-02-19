@@ -17,7 +17,7 @@ public abstract class Vehicle {
 	}
 
 	public String print() {
-		return colour + " " + make + " with id of " + id;
+		return colour + " " + make + " " + id;
 	}
 
 	public void drive() {
